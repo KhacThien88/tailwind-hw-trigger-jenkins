@@ -1,10 +1,10 @@
-pipeline{
+pipeline {
     agent any 
-    stages{
-        stage("SonarQube Analysis"){
-            steps{
-                scripts{
-                        withSonarQubeEnv('SonarQube') {
+    stages {
+        stage("SonarQube Analysis") {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
                         sh 'sonar-scanner'
                     }
                 }
@@ -17,6 +17,5 @@ pipeline{
                 }
             }
         }
-
     }
 }
