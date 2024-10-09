@@ -1,15 +1,12 @@
 pipeline {
     agent any 
     stages {
-        stage("SonarQube Analysis") {
-            steps {
-                script {
-                    withSonarQubeEnv('SonarQube') {
-                        sh 'sonar-scanner'
-                    }
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'SonarScanner';
+                withSonarQubeEnv() {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
-        }
         stage('Build Docker Image') {
             steps {
                 script {
