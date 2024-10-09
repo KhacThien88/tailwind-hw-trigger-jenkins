@@ -8,9 +8,9 @@ pipeline {
                     withSonarQubeEnv('SonarQube') {
                         sh "${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=hw-tailwind-app \
-                            -Dsonar.sources=. \  // Quét tất cả các tệp trong thư mục hiện tại
+                            -Dsonar.sources=. \  
                             -Dsonar.exclusions=**/node_modules/**,**/lib/**,**/ssl/**,**/*.so,**/*.pm \
-                            -Dsonar.projectBaseDir=${WORKSPACE}"  // Đường dẫn gốc là thư mục workspace
+                            -Dsonar.projectBaseDir=${WORKSPACE}"  
                     }
                 }
             }
