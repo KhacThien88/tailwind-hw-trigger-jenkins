@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'SonarScanner'
-                    withSonarQubeEnv() {
+                    withSonarQubeEnv('SonarQube') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
@@ -14,7 +14,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("ktei8htop15122004/hw-tailwind-app:latest").push()
+                    def image = docker.build("ktei8htop15122004/hw-tailwind-app:latest")
+                    image.push('latest')
                 }
             }
         }
@@ -27,7 +28,7 @@ pipeline {
         }
         stage('Slack Notification') {
             steps {
-                slackSend(channel: 'Test App', message: "Build and deployment successful!")
+                slackSend(channel: '#test-app', message: "Build and deployment successful!")
             }
         }
     }
