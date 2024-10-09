@@ -14,5 +14,17 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    sh 'argocd app sync hw-tailwind-app'
+                }
+            }
+        }
+        stage('Slack Notification') {
+            steps {
+                slackSend(channel: '#your-channel', message: "Build and deployment successful!")
+            }
+        }
     }
 }
