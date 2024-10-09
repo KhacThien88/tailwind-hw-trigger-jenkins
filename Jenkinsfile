@@ -1,13 +1,17 @@
 pipeline {
     agent any 
+    environment {
+        SONAR_SCANNER_HOME = tool 'SonarScanner'
+    }
+
     stages {
         stage('SonarQube Analysis') {
             steps {
                 script {
                     def scannerHome = tool 'SonarScanner'
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
+                        withSonarQubeEnv('SonarQube Server') {
+                            sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=pipeline-project -Dsonar.sources=src -Dsonar.host.url=http://localhost:9000 -Dsonar.projectVersion=1.0 -Dsonar.language=html"
+                        }
                 }
             }
         }
