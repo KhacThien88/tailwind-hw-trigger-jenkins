@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Slack Notification') {
             steps {
-                slackSend(channel: '#your-channel', message: "Build and deployment successful!")
+                slackSend(channel: 'Test App', message: "Build and deployment successful!")
             }
         }
     }
