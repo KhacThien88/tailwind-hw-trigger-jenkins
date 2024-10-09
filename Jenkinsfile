@@ -11,6 +11,11 @@ pipeline {
         //         }
         //     }
         // }
+        stage('Check Docker') {
+            steps {
+                sh 'docker --version'
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'dev', url: 'https://index.docker.io/v1/') {
