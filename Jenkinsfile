@@ -13,9 +13,9 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    def image = docker.build("ktei8htop15122004/hw-tailwind-app:latest")
-                    image.push('latest')
+                withDockerRegistry(credentialsId: 'dev', url: 'https://index.docker.io/v1/') {
+                    sh 'docker build -t ktei8htop15122004/hw-tailwind-app .'
+                    sh 'docker push -t ktei8htop15122004/hw-tailwind-app'
                 }
             }
         }
